@@ -1,5 +1,6 @@
 package fr.chatop.api.dto.response.rental;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import fr.chatop.api.models.Rental;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -17,10 +18,13 @@ public record RentalDTO(
     @Schema(description = "Rental description", example = "Nice house in the countryside")
     String description,
     @Schema(description = "Rental owner id", example = "1")
+    @JsonProperty("owner_id")
     int ownerId,
     @Schema(description = "Rental creation date", example = "2024/04/29")
+    @JsonProperty("created_at")
     String createdAt,
     @Schema(description = "Rental update date", example = "2024/04/29")
+    @JsonProperty("updated_at")
     String updatedAt
 ) {
 

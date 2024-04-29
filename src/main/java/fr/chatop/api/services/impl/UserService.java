@@ -1,6 +1,6 @@
 package fr.chatop.api.services.impl;
 
-import fr.chatop.api.dto.request.RegisterUserDTO;
+import fr.chatop.api.dto.request.auth.RegisterUserDTO;
 import fr.chatop.api.exception.ResponseEntityException;
 import fr.chatop.api.models.User;
 import fr.chatop.api.repositories.IUserRepository;

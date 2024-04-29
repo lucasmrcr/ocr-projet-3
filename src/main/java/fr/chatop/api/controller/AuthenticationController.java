@@ -1,6 +1,6 @@
 package fr.chatop.api.controller;
 
-import fr.chatop.api.dto.request.RegisterUserDTO;
+import fr.chatop.api.dto.request.auth.RegisterUserDTO;
 import fr.chatop.api.dto.response.auth.TokenDTO;
 import fr.chatop.api.dto.response.auth.UserDTO;
 import fr.chatop.api.services.IJWTService;

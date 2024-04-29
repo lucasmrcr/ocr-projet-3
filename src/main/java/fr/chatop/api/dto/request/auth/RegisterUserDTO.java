@@ -1,4 +1,4 @@
-package fr.chatop.api.dto.request;
+package fr.chatop.api.dto.request.auth;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

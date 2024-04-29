@@ -1,5 +1,6 @@
 package fr.chatop.api.dto.response.auth;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import fr.chatop.api.models.User;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -14,8 +15,10 @@ public record UserDTO(
     @Schema(description = "User email")
     String email,
     @Schema(description = "User creation date")
+    @JsonProperty("created_at")
     String createdAt,
     @Schema(description = "User update date")
+    @JsonProperty("updated_at")
     String updatedAt
 ) {
     private static final String PATTERN_FORMAT = "yyyy/MM/dd";
