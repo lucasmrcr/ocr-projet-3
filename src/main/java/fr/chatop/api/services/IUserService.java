@@ -8,4 +8,6 @@ public interface IUserService extends UserDetailsService {
     String register(RegisterUserDTO registerUser);
 
     User getConnectedUser();
+
+    User getUser(int id);
 }

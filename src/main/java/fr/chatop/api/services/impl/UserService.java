@@ -46,4 +46,9 @@ public class UserService implements IUserService {
         String subject = jwt.getSubject();
         return userRepository.findByEmail(subject).orElseThrow();
     }
+
+    @Override
+    public User getUser(int id) {
+        return userRepository.findById(id).orElseThrow();
+    }
 }
