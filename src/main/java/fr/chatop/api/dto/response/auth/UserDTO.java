@@ -1,15 +1,21 @@
 package fr.chatop.api.dto.response.auth;
 
 import fr.chatop.api.models.User;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 public record UserDTO(
+    @Schema(description = "User id")
     int id,
+    @Schema(description = "User name")
     String name,
+    @Schema(description = "User email")
     String email,
+    @Schema(description = "User creation date")
     String createdAt,
+    @Schema(description = "User update date")
     String updatedAt
 ) {
     private static final String PATTERN_FORMAT = "yyyy/MM/dd";
