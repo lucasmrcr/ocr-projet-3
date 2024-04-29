@@ -1,11 +1,13 @@
 package fr.chatop.api.services.impl;
 
 import fr.chatop.api.dto.request.RegisterUserDTO;
+import fr.chatop.api.exception.ResponseEntityException;
 import fr.chatop.api.models.User;
 import fr.chatop.api.repositories.IUserRepository;
 import fr.chatop.api.services.IJWTService;
 import fr.chatop.api.services.IUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +27,7 @@ public class UserService implements IUserService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByEmail(username)
-            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+            .orElseThrow(() -> new ResponseEntityException(HttpStatus.NOT_FOUND, "User %s not found", username));
     }
 
     @Override
@@ -44,11 +46,11 @@ public class UserService implements IUserService {
     public User getConnectedUser() {
         Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String subject = jwt.getSubject();
-        return userRepository.findByEmail(subject).orElseThrow();
+        return userRepository.findByEmail(subject).orElseThrow(() -> new ResponseEntityException(HttpStatus.UNAUTHORIZED, "User not found"));
     }
 
     @Override
     public User getUser(int id) {
-        return userRepository.findById(id).orElseThrow();
+        return userRepository.findById(id).orElseThrow(() -> new ResponseEntityException(HttpStatus.NOT_FOUND, "User %d not found", id));
     }
 }

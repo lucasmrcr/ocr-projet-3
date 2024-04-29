@@ -1,6 +1,7 @@
 package fr.chatop.api.controller;
 
 import fr.chatop.api.dto.response.auth.UserDTO;
+import fr.chatop.api.dto.response.exception.ResponseExceptionDTO;
 import fr.chatop.api.services.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -27,7 +28,8 @@ public class UserController {
     )
     @ApiResponses({
         @ApiResponse(responseCode = "200", description = "OK", content = @Content(schema = @Schema(implementation = UserDTO.class))),
-        @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content)
+        @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+        @ApiResponse(responseCode = "404", description = "Not found", content = @Content(schema = @Schema(implementation = ResponseExceptionDTO.class)))
     })
     @GetMapping("/{id}")
     public ResponseEntity<UserDTO> getUser(@PathVariable() int id) {
