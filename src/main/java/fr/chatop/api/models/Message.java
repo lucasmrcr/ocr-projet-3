@@ -4,9 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.type.SqlTypes;
 
 import java.time.Instant;
 
@@ -17,8 +15,10 @@ import java.time.Instant;
 public class Message {
     @Id
     @Column(name = "id", nullable = false)
-    @JdbcTypeCode(SqlTypes.INTEGER)
-    private Long id;
+    private int id;
+
+    @Column(name = "message")
+    private String message;
 
     @ManyToOne
     @JoinColumn(name = "rental_id")
