@@ -4,6 +4,7 @@ import fr.chatop.api.dto.request.message.CreateMessageDTO;
 import fr.chatop.api.models.Message;
 import fr.chatop.api.models.Rental;
 import fr.chatop.api.models.User;
+import fr.chatop.api.repositories.IMessageRepository;
 import fr.chatop.api.services.IMessageService;
 import fr.chatop.api.services.IRentalService;
 import fr.chatop.api.services.IUserService;
@@ -16,7 +17,7 @@ public class MessageService implements IMessageService {
 
     private final IRentalService rentalService;
     private final IUserService userService;
-
+    private final IMessageRepository messageRepository;
 
     @Override
     public void sendMessage(CreateMessageDTO createMessage) {
@@ -26,5 +27,6 @@ public class MessageService implements IMessageService {
         message.setMessage(createMessage.message());
         message.setRental(rental);
         message.setUser(user);
+        messageRepository.save(message);
     }
 }
