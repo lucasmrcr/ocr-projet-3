@@ -1,0 +1,30 @@
+services:
+  backend:
+    build: .
+    depends_on:
+      - db
+    ports:
+      - "3001:3001"
+    volumes:
+      - ${PICTURES_PATH}:/home/pictures
+    environment:
+      DB_HOST: db
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_PORT: ${DB_PORT}
+      JWT_KEY: ${JWT_KEY}
+      PICTURES_PATH: /home/pictures
+  db:
+    image: mysql:8.3.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+    ports:
+      - "${DB_PORT}:3306"
+    volumes:
+      - ${DB_PATH}:/var/lib/mysql
