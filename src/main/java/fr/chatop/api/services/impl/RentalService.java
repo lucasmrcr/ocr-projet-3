@@ -36,7 +36,7 @@ public class RentalService implements IRentalService {
     @Override
     public void create(CreateRentalDTO createRental) {
         String pictureUrl = pictureService.savePicture(createRental.picture());
-        User owner = userService.getUser(createRental.ownerId());
+        User user = userService.getConnectedUser();
 
         Rental rental = new Rental();
         rental.setName(createRental.name());
@@ -44,7 +44,7 @@ public class RentalService implements IRentalService {
         rental.setPrice(createRental.price());
         rental.setDescription(createRental.description());
         rental.setPicture(pictureUrl);
-        rental.setOwner(owner);
+        rental.setOwner(user);
         rentalRepository.save(rental);
     }
 

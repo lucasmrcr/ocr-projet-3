@@ -1,5 +1,6 @@
 package fr.chatop.api.controller;
 
+import fr.chatop.api.dto.request.auth.LoginDTO;
 import fr.chatop.api.dto.request.auth.RegisterUserDTO;
 import fr.chatop.api.dto.response.auth.TokenDTO;
 import fr.chatop.api.dto.response.auth.UserDTO;
@@ -32,8 +33,8 @@ public class AuthenticationController {
         @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content)
     })
     @PostMapping("/login")
-    public ResponseEntity<TokenDTO> login(Authentication authentication) {
-        return ResponseEntity.ok(new TokenDTO(jwtService.generateToken(authentication)));
+    public ResponseEntity<TokenDTO> login(@RequestBody LoginDTO login) {
+        return ResponseEntity.ok(new TokenDTO(userService.login(login)));
     }
 
     @Operation(

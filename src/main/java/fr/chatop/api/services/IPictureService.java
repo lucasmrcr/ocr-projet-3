@@ -6,4 +6,5 @@ public interface IPictureService {
 
     String savePicture(MultipartFile picture);
 
+    byte[] getPicture(String id);
 }

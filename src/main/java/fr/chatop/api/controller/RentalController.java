@@ -4,6 +4,7 @@ import fr.chatop.api.dto.request.rental.CreateRentalDTO;
 import fr.chatop.api.dto.request.rental.UpdateRentalDTO;
 import fr.chatop.api.dto.response.MessageDTO;
 import fr.chatop.api.dto.response.exception.ResponseExceptionDTO;
+import fr.chatop.api.dto.response.rental.ListRentalDTO;
 import fr.chatop.api.dto.response.rental.RentalDTO;
 import fr.chatop.api.services.IRentalService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,8 +15,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/rentals")
@@ -33,8 +32,8 @@ public class RentalController {
         @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
     })
     @GetMapping
-    public ResponseEntity<List<RentalDTO>> getRentals() {
-        return ResponseEntity.ok(rentalService.getRentals().stream().map(RentalDTO::from).toList());
+    public ResponseEntity<ListRentalDTO> getRentals() {
+        return ResponseEntity.ok(new ListRentalDTO(rentalService.getRentals().stream().map(RentalDTO::from).toList()));
     }
 
     @Operation(

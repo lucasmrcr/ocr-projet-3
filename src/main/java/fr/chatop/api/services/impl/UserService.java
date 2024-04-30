@@ -1,5 +1,6 @@
 package fr.chatop.api.services.impl;
 
+import fr.chatop.api.dto.request.auth.LoginDTO;
 import fr.chatop.api.dto.request.auth.RegisterUserDTO;
 import fr.chatop.api.exception.ResponseEntityException;
 import fr.chatop.api.models.User;
@@ -52,5 +53,15 @@ public class UserService implements IUserService {
     @Override
     public User getUser(int id) {
         return userRepository.findById(id).orElseThrow(() -> new ResponseEntityException(HttpStatus.NOT_FOUND, "User %d not found", id));
+    }
+
+    @Override
+    public String login(LoginDTO login) {
+        User loggedUser = userRepository.findByEmail(login.email())
+            .filter(user -> passwordEncoder.matches(login.password(), user.getPassword()))
+            .orElseThrow(() -> new ResponseEntityException(HttpStatus.UNAUTHORIZED, "Invalid credentials"));
+        return jwtService.generateToken(new UsernamePasswordAuthenticationToken(
+            loggedUser, null, loggedUser.getAuthorities()
+        ));
     }
 }
