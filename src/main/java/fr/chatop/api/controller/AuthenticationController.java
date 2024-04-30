@@ -4,7 +4,6 @@ import fr.chatop.api.dto.request.auth.LoginDTO;
 import fr.chatop.api.dto.request.auth.RegisterUserDTO;
 import fr.chatop.api.dto.response.auth.TokenDTO;
 import fr.chatop.api.dto.response.auth.UserDTO;
-import fr.chatop.api.services.IJWTService;
 import fr.chatop.api.services.IUserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -13,7 +12,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-    private final IJWTService jwtService;
     private final IUserService userService;
 
     @Operation(
