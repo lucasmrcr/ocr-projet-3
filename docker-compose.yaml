@@ -28,3 +28,4 @@ services:
       - "${DB_PORT}:3306"
     volumes:
       - ${DB_PATH}:/var/lib/mysql
+      - ${DB_DUMP_FOLDER}:/docker-entrypoint-initdb.d
