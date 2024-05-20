@@ -17,7 +17,7 @@ public class PictureController {
         summary = "Get picture",
         description = "Retrieve picture by id"
     )
-    @GetMapping(value = "/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+    @GetMapping(value = "/{id}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
     public @ResponseBody byte[] getPicture(@PathVariable String id) {
         return pictureService.getPicture(id);
     }

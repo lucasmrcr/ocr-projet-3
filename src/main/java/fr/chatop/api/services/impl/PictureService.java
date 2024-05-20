@@ -29,10 +29,6 @@ public class PictureService implements IPictureService {
 
     @Override
     public String savePicture(MultipartFile picture) {
-        if (picture.getName().endsWith(".jpg")) {
-            throw new ResponseEntityException(HttpStatus.BAD_REQUEST, "Invalid picture format");
-        }
-
         File pictureFolder = new File(picturesPath);
 
         // If picture folder does not exist, create it
