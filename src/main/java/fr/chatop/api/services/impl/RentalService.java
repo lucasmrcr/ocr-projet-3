@@ -30,6 +30,7 @@ public class RentalService implements IRentalService {
 
     @Override
     public Rental getRental(int id) {
+        // When rental is not found, we throw an exception which will be caught by exception handler
         return rentalRepository.findById(id).orElseThrow(() -> new ResponseEntityException(HttpStatus.NOT_FOUND, "Rental with id %d not found", id));
     }
 

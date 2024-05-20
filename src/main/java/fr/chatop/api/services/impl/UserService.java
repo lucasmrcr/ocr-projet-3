@@ -27,6 +27,7 @@ public class UserService implements IUserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // When user is not found, we throw an exception which will be caught by exception handler
         return userRepository.findByEmail(username)
             .orElseThrow(() -> new ResponseEntityException(HttpStatus.NOT_FOUND, "User %s not found", username));
     }
@@ -38,6 +39,7 @@ public class UserService implements IUserService {
         user.setEmail(registerUser.email());
         user.setPassword(passwordEncoder.encode(registerUser.password()));
         user = userRepository.save(user);
+        // TWhen user is registered, the response will contain a JWT token
         return jwtService.generateToken(new UsernamePasswordAuthenticationToken(
             user, null, user.getAuthorities()
         ));
@@ -45,21 +47,28 @@ public class UserService implements IUserService {
 
     @Override
     public User getConnectedUser() {
+        // To get connected user, we use the subject of the jwt token. It contains the email of the user
         Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String subject = jwt.getSubject();
+        // When user is not found, we throw an exception which will be caught by exception handler
         return userRepository.findByEmail(subject).orElseThrow(() -> new ResponseEntityException(HttpStatus.UNAUTHORIZED, "User not found"));
     }
 
     @Override
     public User getUser(int id) {
+        // When user is not found, we throw an exception which will be caught by exception handler
         return userRepository.findById(id).orElseThrow(() -> new ResponseEntityException(HttpStatus.NOT_FOUND, "User %d not found", id));
     }
 
     @Override
     public String login(LoginDTO login) {
+        // To make login action, first we find the user by email and then we check if the password is correct
+        // If nothing matches we throw an exception which will be caught by exception handler
         User loggedUser = userRepository.findByEmail(login.email())
             .filter(user -> passwordEncoder.matches(login.password(), user.getPassword()))
             .orElseThrow(() -> new ResponseEntityException(HttpStatus.UNAUTHORIZED, "Invalid credentials"));
+
+        // And then we generate a JWT token
         return jwtService.generateToken(new UsernamePasswordAuthenticationToken(
             loggedUser, null, loggedUser.getAuthorities()
         ));

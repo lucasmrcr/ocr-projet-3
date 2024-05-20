@@ -35,11 +35,14 @@ public class PictureService implements IPictureService {
 
         File pictureFolder = new File(picturesPath);
 
+        // If picture folder does not exist, create it
         if (!pictureFolder.exists() && pictureFolder.mkdirs() || pictureFolder.exists() && pictureFolder.isDirectory()) {
+            // That is the new name of the picture, we use UUID to avoid conflicts
             String pictureFileName = UUID.randomUUID().toString();
             File pictureFile = new File(pictureFolder, pictureFileName);
 
             try {
+                // Saving the picture to the file and returning the URL
                 picture.transferTo(pictureFile);
                 return picturesUrl + "/" + pictureFileName;
             } catch (Exception e) {
@@ -51,13 +54,14 @@ public class PictureService implements IPictureService {
 
     @Override
     public byte[] getPicture(String id) {
-        File pictureFolder = new File(picturesPath);
+        File pictureFile = new File(picturesPath, id);
 
-        if (!pictureFolder.exists() || !pictureFolder.isDirectory()) {
+        // When picture is not found, we throw an exception which will be caught by exception handler
+        if (!pictureFile.exists()) {
             throw new ResponseEntityException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to get picture");
         }
 
-        File pictureFile = new File(pictureFolder, id);
+        // Reading the picture and returning it as byte array
         try (InputStream inputStream = new FileInputStream(pictureFile)) {
             return IOUtils.toByteArray(inputStream);
         } catch (IOException e) {

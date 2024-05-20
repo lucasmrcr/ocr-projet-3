@@ -12,6 +12,7 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {ResponseEntityException.class})
     public ResponseEntity<ResponseExceptionDTO> exception(ResponseEntityException exception, WebRequest req) {
+        // When exception is caught, we return a response with the exception message and status
         return new ResponseEntity<>(
             new ResponseExceptionDTO(exception.getMessage()),
             exception.getStatus()
