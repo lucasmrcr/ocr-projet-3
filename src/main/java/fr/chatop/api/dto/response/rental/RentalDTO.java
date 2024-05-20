@@ -13,7 +13,7 @@ public record RentalDTO(
     double surface,
     @Schema(description = "Rental price", example = "1000")
     double price,
-    @Schema(description = "Rental picture", example = "https://blog.technavio.org/wp-content/uploads/2018/12/Online-House-Rental-Sites.jpg")
+    @Schema(description = "Rental picture")
     String picture,
     @Schema(description = "Rental description", example = "Nice house in the countryside")
     String description,

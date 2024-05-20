@@ -72,8 +72,8 @@ public class RentalController {
         @ApiResponse(responseCode = "200", description = "Rental updated", content = @Content(schema = @Schema(implementation = MessageDTO.class))),
         @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content)
     })
-    @PutMapping("/{id}")
-    public ResponseEntity<MessageDTO> update(@PathVariable() int id, @RequestBody UpdateRentalDTO updateRental) {
+    @PutMapping(value = "/{id}", consumes = {"multipart/form-data"})
+    public ResponseEntity<MessageDTO> update(@PathVariable() int id, @ModelAttribute UpdateRentalDTO updateRental) {
         rentalService.update(id, updateRental);
         return ResponseEntity.ok(new MessageDTO("Rental updated !"));
     }
