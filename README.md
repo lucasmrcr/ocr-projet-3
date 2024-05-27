@@ -13,7 +13,7 @@ Ouvrez le fichier `.env` et modifiez les variables d'environnement suivantes :
 - DB_PASSWORD: Le mot de passe de la base de données
 - DB_DUMP_FOLDER: Le chemin du dossier contenant le dump de la base de données
 - DB_PATH: Le chemin du dossier contenant la base de données
-- JWT_KEY: La clé secrète pour générer les tokens JWT (génerez une clé avec la commande `openssl rand -base64 32`)
+- JWT_KEY: La clé secrète pour générer les tokens JWT (génerez une clé avec la commande `openssl rand -hex 32`)
 - PICTURES_PATH: Le chemin du dossier contenant les images des biens immobiliers
 
 ## Modifiez le script de création de la base de données
